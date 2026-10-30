@@ -1,5 +1,5 @@
 # Project Name
-P2P Traders
+P2P Expert Traders
 
 # Description
 A Next.js application for peer-to-peer trading. The environment has been configured and tested successfully.
@@ -26,4 +26,4 @@ A Next.js application for peer-to-peer trading. The environment has been configu
 - `supabase/` - Database migrations and Supabase integration
 
 # Author
-- Project initialized as **P2P Traders**
+- Project initialized as **P2P Expert Traders**

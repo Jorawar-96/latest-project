@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Check, Clipboard, QrCode, RotateCw, Timer } from "lucide-react";
+import { formatCurrency } from "@/lib/format-currency";
 
 function formatTime(seconds: number) {
   const minutes = Math.floor(seconds / 60).toString().padStart(2, "0");
@@ -51,7 +52,7 @@ export function PaymentSession({ qrUrl, paymentId, minDeposit }: { qrUrl: string
         </section>
         <section className="panel details-panel" aria-label="Payment details">
           <div className="detail-row"><span className="detail-label">Payment ID</span><div className="payment-id"><span>{paymentId || "Not configured"}</span><button className="secondary-button" type="button" onClick={copyPaymentId} disabled={!paymentId}><Clipboard size={15} />Copy</button></div></div>
-          <div className="detail-row"><span className="detail-label">Minimum deposit</span><div className="deposit-value">Minimum Deposit: {new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 2 }).format(minDeposit)}</div></div>
+          <div className="detail-row"><span className="detail-label">Minimum deposit</span><div className="deposit-value">Minimum Deposit: {formatCurrency(minDeposit)}</div></div>
         </section>
       </div>
       {copied && <div className="toast" role="status"><Check size={17} />Copied!</div>}

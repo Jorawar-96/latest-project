@@ -21,7 +21,7 @@ export function AdminEditor({ paymentId, minDeposit, qrUrl }: { paymentId: strin
         <h2>Payment details</h2>
         <form action={settingsAction}>
           <div className="field"><label htmlFor="paymentId">Payment ID</label><input id="paymentId" name="paymentId" defaultValue={paymentId} maxLength={120} required /></div>
-          <div className="field"><label htmlFor="minDeposit">Minimum deposit (₹)</label><input id="minDeposit" name="minDeposit" type="number" min="0.01" step="0.01" defaultValue={minDeposit} required /></div>
+          <div className="field"><label htmlFor="minDeposit">Minimum deposit (USD)</label><input id="minDeposit" name="minDeposit" type="number" min="0.01" step="0.01" defaultValue={minDeposit} required /></div>
           <SubmitButton><Save size={16} />{settingsPending ? "Saving…" : "Save changes"}</SubmitButton>
           {settingsState.error && <p className="form-message error" role="alert">{settingsState.error}</p>}
           {settingsState.success && <p className="form-message success" role="status">{settingsState.success}</p>}

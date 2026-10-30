@@ -1,4 +1,4 @@
-# Greenline Payments
+# P2P Expert Traders
 
 A role-based payment portal built with Next.js App Router, TypeScript, Tailwind CSS, and Supabase Auth, Postgres, and Storage.
 
