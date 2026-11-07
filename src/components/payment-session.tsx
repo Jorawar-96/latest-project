@@ -45,7 +45,7 @@ export function PaymentSession({ qrUrl, paymentId, minDeposit }: { qrUrl: string
       <div className="dashboard-grid">
         <section className="panel payment-panel">
           <p className="eyebrow">Scan to pay</p>
-          <div className="qr-frame" style={expired ? { filter: "blur(12px)", opacity: 0.35 } : undefined}>
+          <div className={`qr-frame ${expired ? "expired" : ""}`}>
             {qrUrl ? <Image className="qr-image" src={qrUrl} alt="Payment QR code" width={320} height={320} unoptimized /> : <div className="qr-placeholder"><QrCode size={34} strokeWidth={1.5} /><span>QR code will appear here</span></div>}
           </div>
           <div className="session-row"><span className="session-label"><Timer size={15} style={{ verticalAlign: "-3px", marginRight: 6 }} />Payment session expires in</span><strong className={`timer ${seconds < 120 ? "warning" : ""}`}>{formatTime(seconds)}</strong></div>
@@ -56,7 +56,7 @@ export function PaymentSession({ qrUrl, paymentId, minDeposit }: { qrUrl: string
         </section>
       </div>
       {copied && <div className="toast" role="status"><Check size={17} />Copied!</div>}
-      {expired && <div className="expired-backdrop" role="dialog" aria-modal="true" aria-labelledby="expired-title"><div className="expired-dialog"><Timer size={30} color="#a74942" /><h2 id="expired-title">Session expired</h2><p>Session expired. Please reload the page.</p><button className="primary-button" onClick={() => window.location.reload()}><RotateCw size={16} />Reload</button></div></div>}
+      {expired && <div className="expired-backdrop" role="dialog" aria-modal="true" aria-labelledby="expired-title"><div className="expired-dialog"><Timer size={30} /><h2 id="expired-title">Session expired</h2><p>Session expired. Please reload the page.</p><button className="primary-button" onClick={() => window.location.reload()}><RotateCw size={16} />Reload</button></div></div>}
     </>
   );
 }

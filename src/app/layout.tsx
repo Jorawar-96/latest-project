@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { BRAND_NAME } from "@/config/brand";
 import { getMissingConfiguration } from "@/lib/configuration";
 import { SetupRequired } from "@/components/setup-required";
@@ -13,6 +13,11 @@ export const metadata: Metadata = {
     siteName: BRAND_NAME,
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#FFFFFF",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
