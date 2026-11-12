@@ -11,22 +11,15 @@ export function AuthForm({ mode, checkEmail = false }: { mode: Mode; checkEmail?
   const action = mode === "admin" ? adminAccessAction : mode === "signup" ? signUpAction : loginAction;
   const [state, formAction, pending] = useActionState(action, {});
   const title = mode === "signup" ? "Create your account" : mode === "admin" ? "Admin access" : "Welcome back";
-  const description = mode === "signup" ? "Register to view secure payment instructions." : mode === "admin" ? "Sign in or initialize the administrator account." : "Sign in to continue to your payment dashboard.";
+  const description = mode === "admin" ? "Sign in or initialize the administrator account." : mode === "login" ? "Sign in to continue to your payment dashboard." : "";
 
   return (
     <main className="auth-shell">
-      <section className="auth-art">
-        <Brand />
-        <div className="auth-art-copy">
-          <h1>Payments, made clear.</h1>
-          <p>A straightforward place to find your payment details and keep every transaction moving.</p>
-        </div>
-        <div className="auth-art-foot">A considered way to pay.</div>
-      </section>
+      <Brand />
       <section className="auth-panel">
         <div className="auth-form-wrap">
           <h2>{checkEmail ? "Check your inbox" : title}</h2>
-          <p className="auth-subtitle">{checkEmail ? "A confirmation link is on its way. Verify your email, then sign in." : description}</p>
+          {(checkEmail || description) && <p className="auth-subtitle">{checkEmail ? "A confirmation link is on its way. Verify your email, then sign in." : description}</p>}
           {!checkEmail && (
             <form action={formAction}>
               <div className="field"><label htmlFor="email">Email address</label><input id="email" name="email" type="email" autoComplete="email" required /></div>
