@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Check, Clipboard, QrCode, RotateCw, Timer } from "lucide-react";
+import { Check, Clock3, Copy, QrCode, RotateCw, Timer } from "lucide-react";
 import { formatCurrency } from "@/lib/format-currency";
 
 function formatTime(seconds: number) {
@@ -42,21 +42,24 @@ export function PaymentSession({ qrUrl, paymentId, minDeposit }: { qrUrl: string
 
   return (
     <>
-      <div className="dashboard-grid">
-        <section className="panel payment-panel">
-          <p className="eyebrow">Scan to pay</p>
-          <div className={`qr-frame ${expired ? "expired" : ""}`}>
-            {qrUrl ? <Image className="qr-image" src={qrUrl} alt="Payment QR code" width={320} height={320} unoptimized /> : <div className="qr-placeholder"><QrCode size={34} strokeWidth={1.5} /><span>QR code will appear here</span></div>}
+      <section className="panel payment-panel" aria-label="Payment details">
+        <p className="deposit-label">Minimum Deposit</p>
+        <p className="deposit-value">{formatCurrency(minDeposit)}</p>
+        <hr className="payment-divider" />
+        <div className={`qr-frame ${expired ? "expired" : ""}`}>
+          {qrUrl ? <Image className="qr-image" src={qrUrl} alt="Payment QR code" width={320} height={320} unoptimized /> : <div className="qr-placeholder"><QrCode size={34} strokeWidth={1.5} /><span>QR code will appear here</span></div>}
+        </div>
+        <div className="timer-pill" aria-label={`Session expires in ${formatTime(seconds)}`}><Clock3 size={22} /><strong className="timer">{formatTime(seconds)}</strong></div>
+        <div className="payment-id-block">
+          <span className="detail-label">Payment ID</span>
+          <div className="payment-id">
+            <span className="payment-id-value">{paymentId || "Not configured"}</span>
+            <button className="primary-button" type="button" onClick={copyPaymentId} disabled={!paymentId}><span>Copy</span><Copy size={16} /></button>
           </div>
-          <div className="session-row"><span className="session-label"><Timer size={15} style={{ verticalAlign: "-3px", marginRight: 6 }} />Payment session expires in</span><strong className={`timer ${seconds < 120 ? "warning" : ""}`}>{formatTime(seconds)}</strong></div>
-        </section>
-        <section className="panel details-panel" aria-label="Payment details">
-          <div className="detail-row"><span className="detail-label">Payment ID</span><div className="payment-id"><span>{paymentId || "Not configured"}</span><button className="secondary-button" type="button" onClick={copyPaymentId} disabled={!paymentId}><Clipboard size={15} />Copy</button></div></div>
-          <div className="detail-row"><span className="detail-label">Minimum deposit</span><div className="deposit-value">Minimum Deposit: {formatCurrency(minDeposit)}</div></div>
-        </section>
-      </div>
+        </div>
+      </section>
       {copied && <div className="toast" role="status"><Check size={17} />Copied!</div>}
-      {expired && <div className="expired-backdrop" role="dialog" aria-modal="true" aria-labelledby="expired-title"><div className="expired-dialog"><Timer size={30} /><h2 id="expired-title">Session expired</h2><p>Session expired. Please reload the page.</p><button className="primary-button" onClick={() => window.location.reload()}><RotateCw size={16} />Reload</button></div></div>}
+      {expired && <div className="expired-backdrop" role="dialog" aria-modal="true" aria-labelledby="expired-title"><div className="expired-dialog"><Timer size={30} /><h2 id="expired-title">Session expired</h2><p>Session expired. Please reload the page</p><button className="primary-button" onClick={() => window.location.reload()}><RotateCw size={16} />Reload</button></div></div>}
     </>
   );
 }

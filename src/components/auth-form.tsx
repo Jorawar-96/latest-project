@@ -10,8 +10,8 @@ type Mode = "login" | "signup" | "admin";
 export function AuthForm({ mode, checkEmail = false }: { mode: Mode; checkEmail?: boolean }) {
   const action = mode === "admin" ? adminAccessAction : mode === "signup" ? signUpAction : loginAction;
   const [state, formAction, pending] = useActionState(action, {});
-  const title = mode === "signup" ? "Create your account" : mode === "admin" ? "Admin access" : "Welcome back";
-  const description = mode === "admin" ? "Sign in or initialize the administrator account." : mode === "login" ? "Sign in to continue to your payment dashboard." : "";
+  const title = mode === "signup" ? "Create your account" : mode === "admin" ? "Admin access" : "Login";
+  const description = mode === "admin" ? "Sign in or initialize the administrator account." : "";
 
   return (
     <main className="auth-shell">
@@ -25,7 +25,7 @@ export function AuthForm({ mode, checkEmail = false }: { mode: Mode; checkEmail?
               <div className="field"><label htmlFor="email">Email address</label><input id="email" name="email" type="email" autoComplete="email" required /></div>
               <div className="field"><label htmlFor="password">Password</label><input id="password" name="password" type="password" autoComplete={mode === "signup" ? "new-password" : "current-password"} required minLength={8} /></div>
               {mode === "admin" && <div className="field"><label htmlFor="secretKey">Secret key</label><input id="secretKey" name="secretKey" type="password" autoComplete="off" required /></div>}
-              <button className="primary-button" type="submit" disabled={pending}>{pending ? "Please wait…" : mode === "signup" ? "Create account" : "Continue"}</button>
+              <button className="primary-button" type="submit" disabled={pending}>{pending ? "Please wait…" : mode === "signup" ? "Create account" : mode === "admin" ? "Continue" : "Log in"}</button>
               {state.error && <p role="alert" className="form-message error">{state.error}</p>}
             </form>
           )}

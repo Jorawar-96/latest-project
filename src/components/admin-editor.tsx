@@ -29,7 +29,7 @@ export function AdminEditor({ paymentId, minDeposit, qrUrl }: { paymentId: strin
       </section>
       <section className="panel admin-form">
         <h2>Payment QR code</h2>
-        <div className="current-qr">{qrUrl ? <Image src={qrUrl} alt="Current payment QR code" width={200} height={200} unoptimized /> : <span className="session-label">No QR image uploaded</span>}</div>
+        <div className="current-qr">{qrUrl ? <Image src={qrUrl} alt="Current payment QR code" width={200} height={200} unoptimized /> : <span className="topbar-note">No QR image uploaded</span>}</div>
         <form action={qrAction}>
           <label className="file-field">Choose image <input type="file" name="qrImage" accept="image/*" required /></label>
           <SubmitButton><ImageUp size={16} />{qrPending ? "Uploading…" : "Upload QR code"}</SubmitButton>
